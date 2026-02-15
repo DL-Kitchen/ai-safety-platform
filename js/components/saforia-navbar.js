@@ -84,7 +84,8 @@ class SaforiaNavbar extends HTMLElement {
     }
 
     updateActive() {
-        const currentPath = getCurrentRoute();
+        const hash = window.location.hash || '#/analyzer';
+        const currentPath = hash.startsWith('#') ? hash.slice(1) : '/analyzer';
         this.querySelectorAll('.nav-link').forEach(link => {
             link.classList.toggle('active', link.dataset.path === currentPath);
         });
