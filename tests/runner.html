@@ -188,7 +188,8 @@
         // ─── I18n Tests ───
 
         async function testI18n() {
-            const { t, getLocale, getSupportedLocales } = await import('../js/i18n.js');
+            const { initI18n, t, getLocale, getSupportedLocales } = await import('../js/i18n.js');
+            await initI18n();
 
             suite('i18n.js - Core');
             assert(typeof getLocale() === 'string', 'getLocale returns a string');

@@ -67,6 +67,13 @@ async function run() {
     const results = await page.waitForFunction(() => window.__TEST_RESULTS__, { timeout: 30000 });
     const { passed, failed, total, elapsed } = await results.jsonValue();
 
+    // Print failures if any
+    if (failed > 0) {
+        const failures = await page.$$eval('.fail', els => els.map(el => el.textContent));
+        failures.forEach(f => console.log(`  FAIL: ${f}`));
+        console.log('');
+    }
+
     console.log(`Results: ${passed}/${total} passed, ${failed} failed (${elapsed}ms)`);
 
     await browser.close();
