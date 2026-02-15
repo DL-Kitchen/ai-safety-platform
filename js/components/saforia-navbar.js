@@ -1,7 +1,6 @@
 // Saforia - Navigation Bar Web Component
 
 import { t, getLocale, setLocale, getSupportedLocales, onLocaleChange } from '../i18n.js';
-import { getCurrentRoute } from '../router.js';
 import { toggleTheme, getTheme } from '../app.js';
 
 const LOCALE_LABELS = { en: 'EN', es: 'ES' };
@@ -26,7 +25,8 @@ class SaforiaNavbar extends HTMLElement {
             { path: '/certification', key: 'nav.certification' }
         ];
 
-        const currentPath = getCurrentRoute() || '/analyzer';
+        const hash = window.location.hash || '#/analyzer';
+        const currentPath = hash.startsWith('#') ? hash.slice(1) : '/analyzer';
         const locales = getSupportedLocales();
         const currentLocale = getLocale();
         const isDark = getTheme() === 'dark';

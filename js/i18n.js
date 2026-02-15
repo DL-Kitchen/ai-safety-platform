@@ -40,6 +40,7 @@ export async function initI18n() {
     currentLocale = detectLocale();
     translations = await loadLocale(currentLocale);
     document.documentElement.lang = currentLocale;
+    listeners.forEach(fn => fn(currentLocale));
 }
 
 export async function setLocale(locale) {
