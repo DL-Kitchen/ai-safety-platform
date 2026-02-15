@@ -23,7 +23,8 @@ function detectLocale() {
 
 async function loadLocale(locale) {
     try {
-        const response = await fetch(`locales/${locale}.json`);
+        const url = new URL(`../locales/${locale}.json`, import.meta.url);
+        const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         return await response.json();
     } catch (err) {

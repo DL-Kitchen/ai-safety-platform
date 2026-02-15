@@ -16,7 +16,8 @@ export async function loadLexicon(locale) {
     if (cache[locale]) return cache[locale];
 
     try {
-        const response = await fetch(`data/lexicons/${locale}.json`);
+        const url = new URL(`../../data/lexicons/${locale}.json`, import.meta.url);
+        const response = await fetch(url);
         if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const lexicon = await response.json();
         cache[locale] = lexicon;
