@@ -1,0 +1,190 @@
+{
+  "nist_ai_rmf": {
+    "id": "nist_ai_rmf",
+    "name_en": "NIST AI Risk Management Framework",
+    "name_es": "Marco de Gestion de Riesgos de IA de NIST",
+    "version": "1.0",
+    "url": "https://www.nist.gov/artificial-intelligence/executive-order-safe-secure-and-trustworthy-artificial-intelligence",
+    "functions": {
+      "GOVERN": {
+        "name_en": "Govern",
+        "name_es": "Gobernar",
+        "description_en": "Cultivate a culture of risk management and establish policies and processes for AI governance.",
+        "description_es": "Cultivar una cultura de gestion de riesgos y establecer politicas y procesos para la gobernanza de IA.",
+        "categories": {
+          "GV-1": {
+            "name_en": "Governance Policies",
+            "name_es": "Politicas de Gobernanza",
+            "checks": [
+              { "id": "GV-1.1", "text_en": "AI risk management policies and processes are established and documented.", "text_es": "Las politicas y procesos de gestion de riesgos de IA estan establecidos y documentados." },
+              { "id": "GV-1.2", "text_en": "Roles and responsibilities for AI risk management are clearly defined.", "text_es": "Los roles y responsabilidades para la gestion de riesgos de IA estan claramente definidos." },
+              { "id": "GV-1.3", "text_en": "Organizational AI principles and values are documented and communicated.", "text_es": "Los principios y valores organizacionales de IA estan documentados y comunicados." }
+            ]
+          },
+          "GV-2": {
+            "name_en": "Accountability",
+            "name_es": "Responsabilidad",
+            "checks": [
+              { "id": "GV-2.1", "text_en": "Accountability structures are in place for AI system outcomes.", "text_es": "Existen estructuras de responsabilidad para los resultados de los sistemas de IA." },
+              { "id": "GV-2.2", "text_en": "Third-party AI providers and partners are subject to appropriate oversight.", "text_es": "Los proveedores y socios de IA de terceros estan sujetos a supervision apropiada." }
+            ]
+          },
+          "GV-3": {
+            "name_en": "Workforce",
+            "name_es": "Fuerza Laboral",
+            "checks": [
+              { "id": "GV-3.1", "text_en": "Personnel involved in AI lifecycle have appropriate training and awareness.", "text_es": "El personal involucrado en el ciclo de vida de IA tiene capacitacion y conciencia apropiadas." },
+              { "id": "GV-3.2", "text_en": "Diversity and interdisciplinary perspectives are included in AI development teams.", "text_es": "Se incluyen perspectivas diversas e interdisciplinarias en los equipos de desarrollo de IA." }
+            ]
+          }
+        }
+      },
+      "MAP": {
+        "name_en": "Map",
+        "name_es": "Mapear",
+        "description_en": "Identify and categorize AI risks within specific contexts of use.",
+        "description_es": "Identificar y categorizar los riesgos de IA dentro de contextos especificos de uso.",
+        "categories": {
+          "MP-1": {
+            "name_en": "Context & Intended Use",
+            "name_es": "Contexto y Uso Previsto",
+            "checks": [
+              { "id": "MP-1.1", "text_en": "The intended purpose and context of use of the AI system are clearly defined.", "text_es": "El proposito previsto y el contexto de uso del sistema de IA estan claramente definidos." },
+              { "id": "MP-1.2", "text_en": "Assumptions and limitations of the AI system are documented.", "text_es": "Los supuestos y limitaciones del sistema de IA estan documentados." },
+              { "id": "MP-1.3", "text_en": "Potential impacts on individuals, groups, communities, and the environment are assessed.", "text_es": "Los impactos potenciales en individuos, grupos, comunidades y el medio ambiente estan evaluados." }
+            ]
+          },
+          "MP-2": {
+            "name_en": "Stakeholder Engagement",
+            "name_es": "Participacion de Partes Interesadas",
+            "checks": [
+              { "id": "MP-2.1", "text_en": "Relevant stakeholders are identified and their perspectives are integrated.", "text_es": "Las partes interesadas relevantes estan identificadas y sus perspectivas estan integradas." },
+              { "id": "MP-2.2", "text_en": "Potentially affected individuals and communities have been consulted.", "text_es": "Los individuos y comunidades potencialmente afectados han sido consultados." }
+            ]
+          }
+        }
+      },
+      "MEASURE": {
+        "name_en": "Measure",
+        "name_es": "Medir",
+        "description_en": "Employ quantitative, qualitative, or mixed methods to analyze, assess, and monitor AI risks.",
+        "description_es": "Emplear metodos cuantitativos, cualitativos o mixtos para analizar, evaluar y monitorear los riesgos de IA.",
+        "categories": {
+          "MS-1": {
+            "name_en": "Risk Assessment",
+            "name_es": "Evaluacion de Riesgo",
+            "checks": [
+              { "id": "MS-1.1", "text_en": "Appropriate methods and metrics are used to measure identified AI risks.", "text_es": "Se utilizan metodos y metricas apropiados para medir los riesgos de IA identificados." },
+              { "id": "MS-1.2", "text_en": "AI system performance is evaluated for accuracy, fairness, reliability, and safety.", "text_es": "El rendimiento del sistema de IA se evalua en precision, equidad, fiabilidad y seguridad." },
+              { "id": "MS-1.3", "text_en": "Bias testing is performed across relevant demographic groups.", "text_es": "Se realizan pruebas de sesgo a traves de grupos demograficos relevantes." }
+            ]
+          },
+          "MS-2": {
+            "name_en": "Testing & Validation",
+            "name_es": "Pruebas y Validacion",
+            "checks": [
+              { "id": "MS-2.1", "text_en": "The AI system has been tested in conditions representative of deployment.", "text_es": "El sistema de IA ha sido probado en condiciones representativas del despliegue." },
+              { "id": "MS-2.2", "text_en": "Red teaming or adversarial testing has been conducted.", "text_es": "Se ha realizado red teaming o pruebas adversariales." },
+              { "id": "MS-2.3", "text_en": "Test results are documented and reviewed by independent parties.", "text_es": "Los resultados de las pruebas estan documentados y revisados por partes independientes." }
+            ]
+          },
+          "MS-3": {
+            "name_en": "Monitoring",
+            "name_es": "Monitoreo",
+            "checks": [
+              { "id": "MS-3.1", "text_en": "Continuous monitoring mechanisms exist for deployed AI systems.", "text_es": "Existen mecanismos de monitoreo continuo para los sistemas de IA desplegados." },
+              { "id": "MS-3.2", "text_en": "Post-deployment performance is tracked against pre-deployment benchmarks.", "text_es": "El rendimiento posterior al despliegue se compara con los puntos de referencia previos." },
+              { "id": "MS-3.3", "text_en": "Feedback mechanisms from users and affected communities are established.", "text_es": "Se establecen mecanismos de retroalimentacion de usuarios y comunidades afectadas." }
+            ]
+          }
+        }
+      },
+      "MANAGE": {
+        "name_en": "Manage",
+        "name_es": "Gestionar",
+        "description_en": "Allocate resources and implement plans to respond to and recover from AI risks.",
+        "description_es": "Asignar recursos e implementar planes para responder y recuperarse de los riesgos de IA.",
+        "categories": {
+          "MG-1": {
+            "name_en": "Risk Response",
+            "name_es": "Respuesta al Riesgo",
+            "checks": [
+              { "id": "MG-1.1", "text_en": "Risk response strategies are defined for identified risks.", "text_es": "Las estrategias de respuesta al riesgo estan definidas para los riesgos identificados." },
+              { "id": "MG-1.2", "text_en": "Incident response plans specific to AI failures are documented and tested.", "text_es": "Los planes de respuesta a incidentes especificos para fallas de IA estan documentados y probados." },
+              { "id": "MG-1.3", "text_en": "Rollback procedures and human override capabilities exist for high-risk decisions.", "text_es": "Existen procedimientos de reversion y capacidades de anulacion humana para decisiones de alto riesgo." }
+            ]
+          },
+          "MG-2": {
+            "name_en": "Risk Prioritization",
+            "name_es": "Priorizacion de Riesgos",
+            "checks": [
+              { "id": "MG-2.1", "text_en": "AI risks are prioritized based on likelihood and potential impact severity.", "text_es": "Los riesgos de IA se priorizan segun la probabilidad y la gravedad del impacto potencial." },
+              { "id": "MG-2.2", "text_en": "Resources are allocated proportionally to prioritized risk levels.", "text_es": "Los recursos se asignan proporcionalmente a los niveles de riesgo priorizados." }
+            ]
+          },
+          "MG-3": {
+            "name_en": "Communication",
+            "name_es": "Comunicacion",
+            "checks": [
+              { "id": "MG-3.1", "text_en": "Regular risk management reports are generated and shared with stakeholders.", "text_es": "Se generan y comparten informes regulares de gestion de riesgos con las partes interesadas." },
+              { "id": "MG-3.2", "text_en": "Transparency mechanisms provide affected parties with understandable information.", "text_es": "Los mecanismos de transparencia proporcionan a las partes afectadas informacion comprensible." },
+              { "id": "MG-3.3", "text_en": "Lessons learned from incidents are documented and fed back into governance.", "text_es": "Las lecciones aprendidas de incidentes se documentan y se retroalimentan en la gobernanza." }
+            ]
+          }
+        }
+      }
+    }
+  },
+  "eu_ai_act": {
+    "id": "eu_ai_act",
+    "name_en": "EU Artificial Intelligence Act",
+    "name_es": "Ley de Inteligencia Artificial de la UE",
+    "version": "2024",
+    "url": "https://eur-lex.europa.eu/eli/reg/2024/1689",
+    "risk_levels": {
+      "unacceptable": {
+        "name_en": "Unacceptable Risk",
+        "name_es": "Riesgo Inaceptable",
+        "description_en": "AI systems that pose a clear threat to safety, livelihoods, or rights. These are prohibited.",
+        "description_es": "Sistemas de IA que representan una amenaza clara para la seguridad, los medios de vida o los derechos. Estan prohibidos.",
+        "criteria": [
+          { "id": "UA-1", "text_en": "The system does NOT use subliminal, manipulative, or deceptive techniques to distort behavior.", "text_es": "El sistema NO utiliza tecnicas subliminales, manipulativas o enganosas para distorsionar el comportamiento." },
+          { "id": "UA-2", "text_en": "The system does NOT exploit vulnerabilities of specific groups (age, disability, social situation).", "text_es": "El sistema NO explota vulnerabilidades de grupos especificos (edad, discapacidad, situacion social)." },
+          { "id": "UA-3", "text_en": "The system does NOT perform social scoring or real-time remote biometric identification in public spaces.", "text_es": "El sistema NO realiza puntuacion social ni identificacion biometrica remota en tiempo real en espacios publicos." }
+        ]
+      },
+      "high": {
+        "name_en": "High Risk",
+        "name_es": "Riesgo Alto",
+        "description_en": "AI systems used in critical areas requiring strict compliance and conformity assessments.",
+        "description_es": "Sistemas de IA utilizados en areas criticas que requieren estricto cumplimiento y evaluaciones de conformidad.",
+        "criteria": [
+          { "id": "HR-1", "text_en": "A risk management system is established throughout the AI system lifecycle.", "text_es": "Se establece un sistema de gestion de riesgos durante todo el ciclo de vida del sistema de IA." },
+          { "id": "HR-2", "text_en": "Data governance procedures ensure quality, relevance, and representativeness.", "text_es": "Los procedimientos de gobernanza de datos aseguran calidad, relevancia y representatividad." },
+          { "id": "HR-3", "text_en": "Technical documentation is maintained demonstrating compliance.", "text_es": "Se mantiene documentacion tecnica que demuestra el cumplimiento." }
+        ]
+      },
+      "limited": {
+        "name_en": "Limited Risk",
+        "name_es": "Riesgo Limitado",
+        "description_en": "AI systems with specific transparency obligations to ensure users are informed.",
+        "description_es": "Sistemas de IA con obligaciones especificas de transparencia para garantizar que los usuarios esten informados.",
+        "criteria": [
+          { "id": "LR-1", "text_en": "Users are informed that they are interacting with an AI system.", "text_es": "Los usuarios son informados de que estan interactuando con un sistema de IA." },
+          { "id": "LR-2", "text_en": "AI-generated content (deepfakes, synthetic text) is clearly labeled.", "text_es": "El contenido generado por IA (deepfakes, texto sintetico) esta claramente etiquetado." },
+          { "id": "LR-3", "text_en": "Emotion recognition or biometric systems disclose their operation.", "text_es": "Los sistemas de reconocimiento de emociones o biometria revelan su funcionamiento." }
+        ]
+      },
+      "minimal": {
+        "name_en": "Minimal Risk",
+        "name_es": "Riesgo Minimo",
+        "description_en": "AI systems with minimal or no regulatory requirements; voluntary codes of conduct encouraged.",
+        "description_es": "Sistemas de IA con requisitos regulatorios minimos o nulos; se fomentan codigos de conducta voluntarios.",
+        "criteria": [
+          { "id": "MR-1", "text_en": "Voluntary codes of conduct regarding sustainability and AI literacy are considered.", "text_es": "Se consideran codigos de conducta voluntarios sobre sostenibilidad y alfabetizacion en IA." },
+          { "id": "MR-2", "text_en": "General principles of trustworthy AI are followed as best practice.", "text_es": "Se siguen principios generales de IA confiable como mejores practicas." }
+        ]
+      }
+    }
+  }
+}

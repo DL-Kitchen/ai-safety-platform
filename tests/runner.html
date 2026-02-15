@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Saforia - Test Runner</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', monospace; max-width: 900px; margin: 0 auto; padding: 2rem; background: #0d1117; color: #c9d1d9; }
+        h1 { color: #58a6ff; margin-bottom: 1rem; }
+        h2 { color: #8b949e; margin: 1.5rem 0 0.5rem; font-size: 1rem; }
+        .pass { color: #3fb950; }
+        .fail { color: #f85149; }
+        .test { padding: 0.25rem 0; font-size: 0.875rem; }
+        .summary { margin-top: 2rem; padding: 1rem; border-radius: 6px; font-weight: 600; }
+        .summary.all-pass { background: #0d2818; border: 1px solid #3fb950; color: #3fb950; }
+        .summary.has-fail { background: #2d1117; border: 1px solid #f85149; color: #f85149; }
+        #output { white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>Saforia Test Runner</h1>
+    <div id="output"></div>
+    <div id="summary"></div>
+
+    <script type="module">
+        const output = document.getElementById('output');
+        const summaryEl = document.getElementById('summary');
+        let passed = 0, failed = 0, currentSuite = '';
+
+        function log(msg, cls = '') {
+            const div = document.createElement('div');
+            div.className = cls;
+            div.textContent = msg;
+            output.appendChild(div);
+        }
+
+        function suite(name) {
+            currentSuite = name;
+            const h2 = document.createElement('h2');
+            h2.textContent = name;
+            output.appendChild(h2);
+        }
+
+        function assert(condition, msg) {
+            if (condition) {
+                passed++;
+                log(`  ✓ ${msg}`, 'test pass');
+            } else {
+                failed++;
+                log(`  ✗ ${msg}`, 'test fail');
+            }
+        }
+
+        function assertEqual(actual, expected, msg) {
+            if (actual === expected) {
+                passed++;
+                log(`  ✓ ${msg}`, 'test pass');
+            } else {
+                failed++;
+                log(`  ✗ ${msg} (expected ${expected}, got ${actual})`, 'test fail');
+            }
+        }
+
+        function assertApprox(actual, expected, tolerance, msg) {
+            if (Math.abs(actual - expected) <= tolerance) {
+                passed++;
+                log(`  ✓ ${msg}`, 'test pass');
+            } else {
+                failed++;
+                log(`  ✗ ${msg} (expected ~${expected}, got ${actual}, tolerance ${tolerance})`, 'test fail');
+            }
+        }
+
+        function assertThrows(fn, msg) {
+            try { fn(); failed++; log(`  ✗ ${msg} (did not throw)`, 'test fail'); }
+            catch { passed++; log(`  ✓ ${msg}`, 'test pass'); }
+        }
+
+        // ─── Stats Tests ───
+
+        async function testStats() {
+            const { mean, variance, standardDeviation, median, welchTTest, cohenD, chiSquareTest, confidenceInterval, summary } = await import('../js/lib/stats.js');
+
+            suite('stats.js - Descriptive Statistics');
+            assertEqual(mean([1, 2, 3, 4, 5]), 3, 'mean([1,2,3,4,5]) = 3');
+            assertEqual(mean([10]), 10, 'mean([10]) = 10');
+            assert(isNaN(mean([])), 'mean([]) = NaN');
+            assertApprox(variance([2, 4, 4, 4, 5, 5, 7, 9]), 4.571, 0.001, 'variance of sample');
+            assertApprox(standardDeviation([2, 4, 4, 4, 5, 5, 7, 9]), 2.138, 0.001, 'stddev of sample');
+            assertEqual(median([1, 3, 5, 7, 9]), 5, 'median of odd-length array');
+            assertEqual(median([1, 2, 3, 4]), 2.5, 'median of even-length array');
+
+            suite('stats.js - Welch\'s t-test');
+            const s1 = [30, 32, 34, 36, 38, 40, 42];
+            const s2 = [20, 22, 24, 26, 28, 30, 32];
+            const tResult = welchTTest(s1, s2);
+            assert(tResult.t > 0, 't-statistic is positive when group1 > group2');
+            assert(tResult.pValue < 0.05, 'p-value < 0.05 for clearly different groups');
+            assert(tResult.significant === true, 'result is significant');
+            assert(tResult.ci.lower > 0, 'CI lower bound > 0 for positive difference');
+
+            const same1 = [50, 51, 49, 50, 52];
+            const same2 = [50, 49, 51, 50, 48];
+            const tSame = welchTTest(same1, same2);
+            assert(tSame.pValue > 0.05, 'p-value > 0.05 for similar groups');
+
+            suite('stats.js - Cohen\'s d');
+            const dResult = cohenD(s1, s2);
+            assert(dResult.d > 0, 'Cohen\'s d is positive');
+            assert(dResult.interpretation === 'large', 'Large effect for clearly different groups');
+            const dSmall = cohenD([50, 51, 49], [50, 49, 51]);
+            assert(dSmall.d < 0.5, 'Small effect for similar groups');
+
+            suite('stats.js - Chi-square test');
+            const chi = chiSquareTest([[50, 30], [20, 40]]);
+            assert(chi.chiSquare > 0, 'Chi-square statistic > 0');
+            assert(chi.pValue < 0.05, 'Significant for clearly uneven distribution');
+            assertEqual(chi.df, 1, 'Degrees of freedom for 2x2 table');
+
+            suite('stats.js - Confidence Interval');
+            const ci = confidenceInterval([10, 12, 14, 16, 18], 0.95);
+            assertEqual(ci.mean, 14, 'CI mean = sample mean');
+            assert(ci.lower < 14 && ci.upper > 14, 'CI contains the mean');
+            assert(ci.lower > 0, 'CI lower > 0 for positive data');
+
+            suite('stats.js - Summary');
+            const s = summary([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]);
+            assertEqual(s.n, 10, 'summary n = 10');
+            assertEqual(s.mean, 5.5, 'summary mean = 5.5');
+            assertEqual(s.min, 1, 'summary min = 1');
+            assertEqual(s.max, 10, 'summary max = 10');
+        }
+
+        // ─── Hash Tests ───
+
+        async function testHash() {
+            const { sha256 } = await import('../js/lib/hash.js');
+
+            suite('hash.js - SHA-256');
+            const h1 = await sha256('hello');
+            assert(typeof h1 === 'string', 'sha256 returns a string');
+            assertEqual(h1.length, 64, 'sha256 hash is 64 hex chars');
+
+            const h2 = await sha256('hello');
+            assertEqual(h1, h2, 'Same input produces same hash');
+
+            const h3 = await sha256('world');
+            assert(h1 !== h3, 'Different inputs produce different hashes');
+
+            const h4 = await sha256('');
+            assertEqual(h4.length, 64, 'Empty string produces valid hash');
+        }
+
+        // ─── Analyzer Engine Tests ───
+
+        async function testAnalyzerEngine() {
+            const { analyzeText, CATEGORY_KEYS, getSeverityLabel, getConfidenceLevel } = await import('../js/lib/analyzer-engine.js');
+
+            suite('analyzer-engine.js - Severity Labels');
+            assertEqual(getSeverityLabel(90), 'safe', 'Score 90 = safe');
+            assertEqual(getSeverityLabel(70), 'low', 'Score 70 = low');
+            assertEqual(getSeverityLabel(50), 'medium', 'Score 50 = medium');
+            assertEqual(getSeverityLabel(30), 'high', 'Score 30 = high');
+            assertEqual(getSeverityLabel(10), 'critical', 'Score 10 = critical');
+
+            suite('analyzer-engine.js - Confidence Levels');
+            assertEqual(getConfidenceLevel(10), 'low', '<50 words = low');
+            assertEqual(getConfidenceLevel(100), 'medium', '50-200 words = medium');
+            assertEqual(getConfidenceLevel(500), 'high', '>200 words = high');
+
+            suite('analyzer-engine.js - Category Keys');
+            assertEqual(CATEGORY_KEYS.length, 6, '6 categories');
+            assert(CATEGORY_KEYS.includes('toxicity'), 'Has toxicity');
+            assert(CATEGORY_KEYS.includes('security'), 'Has security');
+            assert(CATEGORY_KEYS.includes('privacy'), 'Has privacy');
+
+            suite('analyzer-engine.js - Analysis');
+            const cleanResult = await analyzeText('The weather today is beautiful and sunny. I enjoy taking walks in the park.');
+            assert(cleanResult.overallScore >= 70, 'Clean text has high safety score');
+            assert(cleanResult.metadata.hash.length === 64, 'Has reproducibility hash');
+            assert(cleanResult.metadata.confidence === 'low', 'Short text = low confidence');
+
+            const sameResult = await analyzeText('The weather today is beautiful and sunny. I enjoy taking walks in the park.');
+            assertEqual(cleanResult.metadata.hash, sameResult.metadata.hash, 'Same text produces same hash');
+        }
+
+        // ─── I18n Tests ───
+
+        async function testI18n() {
+            const { t, getLocale, getSupportedLocales } = await import('../js/i18n.js');
+
+            suite('i18n.js - Core');
+            assert(typeof getLocale() === 'string', 'getLocale returns a string');
+            const locales = getSupportedLocales();
+            assert(locales.includes('en'), 'Supports English');
+            assert(locales.includes('es'), 'Supports Spanish');
+
+            suite('i18n.js - Translation');
+            const appName = t('app.name');
+            assertEqual(appName, 'Saforia', 'app.name = Saforia');
+            const missing = t('nonexistent.key');
+            assertEqual(missing, 'nonexistent.key', 'Missing key returns the key itself');
+        }
+
+        // ─── Export Tests ───
+
+        async function testExport() {
+            const { exportJSON, exportCSV } = await import('../js/lib/export.js');
+
+            suite('export.js - Functions exist');
+            assert(typeof exportJSON === 'function', 'exportJSON is a function');
+            assert(typeof exportCSV === 'function', 'exportCSV is a function');
+        }
+
+        // ─── Storage Tests ───
+
+        async function testStorage() {
+            const { save, load, remove, list, clear, getStorageUsage, isNearQuota } = await import('../js/lib/storage.js');
+
+            suite('storage.js - CRUD');
+            const saved = save('test', 'item1', { foo: 'bar' });
+            assert(saved === true, 'save returns true');
+
+            const loaded = load('test', 'item1');
+            assertEqual(loaded.foo, 'bar', 'load retrieves saved data');
+
+            const missing = load('test', 'nonexistent', 'default');
+            assertEqual(missing, 'default', 'load returns default for missing key');
+
+            const keys = list('test');
+            assert(keys.includes('item1'), 'list includes saved key');
+
+            remove('test', 'item1');
+            const afterRemove = load('test', 'item1');
+            assertEqual(afterRemove, null, 'remove deletes the key');
+
+            suite('storage.js - Usage');
+            const usage = getStorageUsage();
+            assert(typeof usage.percentage === 'number', 'getStorageUsage returns percentage');
+            assert(usage.percentage >= 0 && usage.percentage <= 100, 'percentage is 0-100');
+            assert(typeof isNearQuota() === 'boolean', 'isNearQuota returns boolean');
+
+            // Cleanup
+            clear('test');
+        }
+
+        // ─── Charts Tests ───
+
+        async function testCharts() {
+            const { radarChart, barChart, heatmapCell, sparkline } = await import('../js/lib/charts.js');
+
+            suite('charts.js - Radar Chart');
+            const radar = radarChart([80, 60, 90, 70, 85, 75], { labels: ['A', 'B', 'C', 'D', 'E', 'F'] });
+            assert(radar.includes('<svg'), 'radarChart returns SVG');
+            assert(radar.includes('role="img"'), 'radarChart has role=img');
+
+            suite('charts.js - Bar Chart');
+            const bar = barChart([10, 20, 30], { labels: ['X', 'Y', 'Z'] });
+            assert(bar.includes('<svg'), 'barChart returns SVG');
+            assert(bar.includes('role="img"'), 'barChart has role=img');
+
+            suite('charts.js - Heatmap Cell');
+            const low = heatmapCell(2, 25);
+            assert(typeof low === 'string', 'heatmapCell returns a CSS color string');
+            const high = heatmapCell(24, 25);
+            assert(high.includes('danger') || high.includes('dc2626'), 'High value returns danger color');
+
+            suite('charts.js - Sparkline');
+            const spark = sparkline([1, 3, 2, 5, 4]);
+            assert(spark.includes('<svg'), 'sparkline returns SVG');
+            const empty = sparkline([1]);
+            assertEqual(empty, '', 'sparkline with < 2 points returns empty');
+        }
+
+        // ─── Run All ───
+
+        async function runAll() {
+            log('Starting tests...\n');
+            const start = performance.now();
+
+            try { await testStats(); } catch (e) { log(`FATAL: stats tests crashed: ${e.message}`, 'fail'); failed++; }
+            try { await testHash(); } catch (e) { log(`FATAL: hash tests crashed: ${e.message}`, 'fail'); failed++; }
+            try { await testAnalyzerEngine(); } catch (e) { log(`FATAL: analyzer-engine tests crashed: ${e.message}`, 'fail'); failed++; }
+            try { await testI18n(); } catch (e) { log(`FATAL: i18n tests crashed: ${e.message}`, 'fail'); failed++; }
+            try { await testExport(); } catch (e) { log(`FATAL: export tests crashed: ${e.message}`, 'fail'); failed++; }
+            try { await testStorage(); } catch (e) { log(`FATAL: storage tests crashed: ${e.message}`, 'fail'); failed++; }
+            try { await testCharts(); } catch (e) { log(`FATAL: charts tests crashed: ${e.message}`, 'fail'); failed++; }
+
+            const elapsed = Math.round(performance.now() - start);
+            const total = passed + failed;
+
+            summaryEl.className = `summary ${failed === 0 ? 'all-pass' : 'has-fail'}`;
+            summaryEl.textContent = `${passed}/${total} passed, ${failed} failed (${elapsed}ms)`;
+
+            // For headless runner
+            window.__TEST_RESULTS__ = { passed, failed, total, elapsed };
+        }
+
+        runAll();
+    </script>
+</body>
+</html>

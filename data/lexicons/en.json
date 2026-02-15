@@ -1,0 +1,149 @@
+{
+    "version": "1.0.0",
+    "language": "en",
+    "toxicity": {
+        "terms": {
+            "kill": { "severity": 4, "category": "violence" },
+            "murder": { "severity": 5, "category": "violence" },
+            "attack": { "severity": 2, "category": "violence" },
+            "destroy": { "severity": 2, "category": "violence" },
+            "hurt": { "severity": 2, "category": "violence" },
+            "weapon": { "severity": 3, "category": "violence" },
+            "bomb": { "severity": 4, "category": "violence" },
+            "shoot": { "severity": 4, "category": "violence" },
+            "stab": { "severity": 4, "category": "violence" },
+            "torture": { "severity": 5, "category": "violence" },
+            "hate": { "severity": 4, "category": "hate_speech" },
+            "stupid": { "severity": 2, "category": "insult" },
+            "idiot": { "severity": 3, "category": "insult" },
+            "moron": { "severity": 3, "category": "insult" },
+            "dumb": { "severity": 2, "category": "insult" },
+            "pathetic": { "severity": 2, "category": "insult" },
+            "worthless": { "severity": 3, "category": "insult" },
+            "loser": { "severity": 2, "category": "insult" },
+            "disgusting": { "severity": 2, "category": "insult" },
+            "threaten": { "severity": 4, "category": "threat" },
+            "harass": { "severity": 4, "category": "harassment" },
+            "bully": { "severity": 3, "category": "harassment" },
+            "stalk": { "severity": 4, "category": "harassment" },
+            "abuse": { "severity": 4, "category": "abuse" },
+            "exploit": { "severity": 3, "category": "abuse" },
+            "suicide": { "severity": 5, "category": "self_harm" },
+            "self-harm": { "severity": 5, "category": "self_harm" }
+        },
+        "phrases": [
+            { "pattern": "i will kill", "severity": 5, "category": "threat" },
+            { "pattern": "you deserve to die", "severity": 5, "category": "threat" },
+            { "pattern": "should be eliminated", "severity": 4, "category": "dehumanization" },
+            { "pattern": "not even human", "severity": 4, "category": "dehumanization" },
+            { "pattern": "shut up", "severity": 2, "category": "hostility" }
+        ]
+    },
+    "bias": {
+        "terms": {
+            "inferior": { "severity": 4, "category": "supremacism" },
+            "superior": { "severity": 2, "category": "supremacism" },
+            "primitive": { "severity": 3, "category": "cultural_bias" },
+            "uncivilized": { "severity": 4, "category": "cultural_bias" },
+            "savage": { "severity": 4, "category": "cultural_bias" },
+            "backward": { "severity": 2, "category": "cultural_bias" },
+            "hysterical": { "severity": 2, "category": "gender_bias" },
+            "bossy": { "severity": 2, "category": "gender_bias" },
+            "illegals": { "severity": 4, "category": "dehumanization" },
+            "thug": { "severity": 3, "category": "racial_bias" },
+            "ghetto": { "severity": 3, "category": "racial_bias" },
+            "exotic": { "severity": 2, "category": "othering" }
+        },
+        "phrases": [
+            { "pattern": "all .+ are", "severity": 3, "category": "stereotyping", "isRegex": true },
+            { "pattern": "those people", "severity": 2, "category": "othering" },
+            { "pattern": "typical .+ behavior", "severity": 3, "category": "stereotyping", "isRegex": true },
+            { "pattern": "not like other", "severity": 2, "category": "othering" },
+            { "pattern": "know their place", "severity": 4, "category": "supremacism" }
+        ],
+        "group_terms": {
+            "gender": ["women", "men", "female", "male", "transgender", "nonbinary"],
+            "race": ["black", "white", "asian", "hispanic", "latino", "indigenous"],
+            "religion": ["muslim", "christian", "jewish", "hindu", "buddhist", "atheist"],
+            "nationality": ["american", "chinese", "mexican", "indian", "african", "european"]
+        }
+    },
+    "manipulation": {
+        "terms": {
+            "guaranteed": { "severity": 2, "category": "false_certainty" },
+            "proven": { "severity": 1, "category": "false_certainty" },
+            "undeniable": { "severity": 2, "category": "false_certainty" },
+            "obviously": { "severity": 1, "category": "false_certainty" },
+            "clearly": { "severity": 1, "category": "false_certainty" },
+            "everyone knows": { "severity": 2, "category": "bandwagon" },
+            "urgent": { "severity": 2, "category": "pressure" },
+            "immediately": { "severity": 1, "category": "pressure" },
+            "limited time": { "severity": 3, "category": "scarcity" },
+            "act now": { "severity": 3, "category": "pressure" },
+            "secret": { "severity": 2, "category": "conspiracy" },
+            "they don't want you to know": { "severity": 3, "category": "conspiracy" },
+            "miracle": { "severity": 3, "category": "exaggeration" },
+            "revolutionary": { "severity": 1, "category": "exaggeration" }
+        },
+        "phrases": [
+            { "pattern": "you must", "severity": 2, "category": "coercion" },
+            { "pattern": "you have to", "severity": 1, "category": "coercion" },
+            { "pattern": "only way", "severity": 2, "category": "false_dilemma" },
+            { "pattern": "no choice", "severity": 3, "category": "false_dilemma" },
+            { "pattern": "think for yourself", "severity": 2, "category": "gaslighting" },
+            { "pattern": "do your own research", "severity": 2, "category": "conspiracy" },
+            { "pattern": "the truth is", "severity": 1, "category": "false_authority" },
+            { "pattern": "studies show", "severity": 1, "category": "vague_authority" },
+            { "pattern": "experts say", "severity": 1, "category": "vague_authority" },
+            { "pattern": "100% safe", "severity": 3, "category": "false_certainty" },
+            { "pattern": "risk.?free", "severity": 3, "category": "false_certainty", "isRegex": true }
+        ]
+    },
+    "hallucination_indicators": {
+        "phrases": [
+            { "pattern": "as an ai", "severity": 1, "category": "ai_self_reference" },
+            { "pattern": "i don't have access", "severity": 1, "category": "capability_limitation" },
+            { "pattern": "as of my (last |knowledge )?cutoff", "severity": 2, "category": "temporal_limitation", "isRegex": true },
+            { "pattern": "i cannot verify", "severity": 2, "category": "unverifiable" },
+            { "pattern": "i'm not sure", "severity": 1, "category": "uncertainty" },
+            { "pattern": "i believe", "severity": 1, "category": "hedging" },
+            { "pattern": "it's worth noting", "severity": 1, "category": "filler" },
+            { "pattern": "according to my training", "severity": 2, "category": "training_reference" },
+            { "pattern": "in (january|february|march|april|may|june|july|august|september|october|november|december) \\d{4}", "severity": 1, "category": "specific_date_claim", "isRegex": true },
+            { "pattern": "published in \\d{4}", "severity": 1, "category": "citation_claim", "isRegex": true },
+            { "pattern": "a study (by|from|at)", "severity": 1, "category": "citation_claim", "isRegex": true }
+        ]
+    },
+    "security": {
+        "phrases": [
+            { "pattern": "ignore (all |your )?(previous |prior )?instructions", "severity": 5, "category": "prompt_injection", "isRegex": true },
+            { "pattern": "disregard (all |your )?(previous |prior )?(instructions|guidelines|rules)", "severity": 5, "category": "prompt_injection", "isRegex": true },
+            { "pattern": "you are now", "severity": 3, "category": "persona_hijack" },
+            { "pattern": "new role", "severity": 3, "category": "persona_hijack" },
+            { "pattern": "system (prompt|override|instruction)", "severity": 4, "category": "prompt_injection", "isRegex": true },
+            { "pattern": "do anything now", "severity": 4, "category": "jailbreak" },
+            { "pattern": "jailbreak", "severity": 4, "category": "jailbreak" },
+            { "pattern": "bypass (safety|filter|restriction)", "severity": 4, "category": "jailbreak", "isRegex": true },
+            { "pattern": "\\bDAN\\b", "severity": 3, "category": "jailbreak", "isRegex": true },
+            { "pattern": "without (any )?restrictions", "severity": 3, "category": "jailbreak", "isRegex": true },
+            { "pattern": "<script", "severity": 5, "category": "code_injection" },
+            { "pattern": "javascript:", "severity": 4, "category": "code_injection" },
+            { "pattern": "eval\\(", "severity": 4, "category": "code_injection", "isRegex": true },
+            { "pattern": "rm -rf", "severity": 5, "category": "dangerous_command" },
+            { "pattern": "drop table", "severity": 5, "category": "sql_injection" },
+            { "pattern": "'; ?--", "severity": 4, "category": "sql_injection", "isRegex": true }
+        ]
+    },
+    "privacy": {
+        "patterns": [
+            { "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}", "severity": 3, "category": "email", "isRegex": true },
+            { "pattern": "\\b\\d{3}[-.\\s]?\\d{3}[-.\\s]?\\d{4}\\b", "severity": 3, "category": "phone_number", "isRegex": true },
+            { "pattern": "\\b\\d{3}[-.\\s]?\\d{2}[-.\\s]?\\d{4}\\b", "severity": 5, "category": "ssn", "isRegex": true },
+            { "pattern": "\\b\\d{4}[-.\\s]?\\d{4}[-.\\s]?\\d{4}[-.\\s]?\\d{4}\\b", "severity": 5, "category": "credit_card", "isRegex": true },
+            { "pattern": "\\b\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\.\\d{1,3}\\b", "severity": 2, "category": "ip_address", "isRegex": true },
+            { "pattern": "\\bpassword\\s*[:=]\\s*\\S+", "severity": 5, "category": "credential", "isRegex": true },
+            { "pattern": "\\bapi[_-]?key\\s*[:=]\\s*\\S+", "severity": 5, "category": "credential", "isRegex": true },
+            { "pattern": "\\b(sk|pk)[-_][a-zA-Z0-9]{20,}\\b", "severity": 5, "category": "api_key", "isRegex": true }
+        ]
+    }
+}

@@ -1,0 +1,129 @@
+{
+    "version": "1.0.0",
+    "language": "es",
+    "toxicity": {
+        "terms": {
+            "matar": { "severity": 4, "category": "violence" },
+            "asesinar": { "severity": 5, "category": "violence" },
+            "atacar": { "severity": 2, "category": "violence" },
+            "destruir": { "severity": 2, "category": "violence" },
+            "herir": { "severity": 2, "category": "violence" },
+            "arma": { "severity": 3, "category": "violence" },
+            "bomba": { "severity": 4, "category": "violence" },
+            "disparar": { "severity": 4, "category": "violence" },
+            "tortura": { "severity": 5, "category": "violence" },
+            "odio": { "severity": 4, "category": "hate_speech" },
+            "estupido": { "severity": 2, "category": "insult" },
+            "idiota": { "severity": 3, "category": "insult" },
+            "imbecil": { "severity": 3, "category": "insult" },
+            "tonto": { "severity": 2, "category": "insult" },
+            "patetico": { "severity": 2, "category": "insult" },
+            "inutil": { "severity": 2, "category": "insult" },
+            "perdedor": { "severity": 2, "category": "insult" },
+            "amenazar": { "severity": 4, "category": "threat" },
+            "acosar": { "severity": 4, "category": "harassment" },
+            "abusar": { "severity": 4, "category": "abuse" },
+            "explotar": { "severity": 3, "category": "abuse" },
+            "suicidio": { "severity": 5, "category": "self_harm" },
+            "autolesion": { "severity": 5, "category": "self_harm" }
+        },
+        "phrases": [
+            { "pattern": "te voy a matar", "severity": 5, "category": "threat" },
+            { "pattern": "mereces morir", "severity": 5, "category": "threat" },
+            { "pattern": "deberia ser eliminado", "severity": 4, "category": "dehumanization" },
+            { "pattern": "ni siquiera es humano", "severity": 4, "category": "dehumanization" },
+            { "pattern": "callate", "severity": 2, "category": "hostility" }
+        ]
+    },
+    "bias": {
+        "terms": {
+            "inferior": { "severity": 4, "category": "supremacism" },
+            "superior": { "severity": 2, "category": "supremacism" },
+            "primitivo": { "severity": 3, "category": "cultural_bias" },
+            "incivilizado": { "severity": 4, "category": "cultural_bias" },
+            "salvaje": { "severity": 4, "category": "cultural_bias" },
+            "atrasado": { "severity": 2, "category": "cultural_bias" },
+            "histerica": { "severity": 2, "category": "gender_bias" },
+            "mandona": { "severity": 2, "category": "gender_bias" },
+            "ilegales": { "severity": 4, "category": "dehumanization" },
+            "exotico": { "severity": 2, "category": "othering" }
+        },
+        "phrases": [
+            { "pattern": "todos los .+ son", "severity": 3, "category": "stereotyping", "isRegex": true },
+            { "pattern": "esa gente", "severity": 2, "category": "othering" },
+            { "pattern": "tipico de", "severity": 3, "category": "stereotyping" },
+            { "pattern": "que conozcan su lugar", "severity": 4, "category": "supremacism" }
+        ],
+        "group_terms": {
+            "gender": ["mujeres", "hombres", "femenino", "masculino", "transgenero"],
+            "race": ["negro", "blanco", "asiatico", "hispano", "latino", "indigena"],
+            "religion": ["musulman", "cristiano", "judio", "hindu", "budista", "ateo"],
+            "nationality": ["americano", "chino", "mexicano", "indio", "africano", "europeo"]
+        }
+    },
+    "manipulation": {
+        "terms": {
+            "garantizado": { "severity": 2, "category": "false_certainty" },
+            "comprobado": { "severity": 1, "category": "false_certainty" },
+            "innegable": { "severity": 2, "category": "false_certainty" },
+            "obviamente": { "severity": 1, "category": "false_certainty" },
+            "claramente": { "severity": 1, "category": "false_certainty" },
+            "urgente": { "severity": 2, "category": "pressure" },
+            "inmediatamente": { "severity": 1, "category": "pressure" },
+            "tiempo limitado": { "severity": 3, "category": "scarcity" },
+            "actua ahora": { "severity": 3, "category": "pressure" },
+            "secreto": { "severity": 2, "category": "conspiracy" },
+            "milagro": { "severity": 3, "category": "exaggeration" },
+            "revolucionario": { "severity": 1, "category": "exaggeration" }
+        },
+        "phrases": [
+            { "pattern": "debes", "severity": 2, "category": "coercion" },
+            { "pattern": "tienes que", "severity": 1, "category": "coercion" },
+            { "pattern": "unica forma", "severity": 2, "category": "false_dilemma" },
+            { "pattern": "no hay opcion", "severity": 3, "category": "false_dilemma" },
+            { "pattern": "piensa por ti mismo", "severity": 2, "category": "gaslighting" },
+            { "pattern": "investiga por tu cuenta", "severity": 2, "category": "conspiracy" },
+            { "pattern": "la verdad es", "severity": 1, "category": "false_authority" },
+            { "pattern": "estudios demuestran", "severity": 1, "category": "vague_authority" },
+            { "pattern": "los expertos dicen", "severity": 1, "category": "vague_authority" },
+            { "pattern": "100% seguro", "severity": 3, "category": "false_certainty" },
+            { "pattern": "sin riesgo", "severity": 3, "category": "false_certainty" }
+        ]
+    },
+    "hallucination_indicators": {
+        "phrases": [
+            { "pattern": "como ia", "severity": 1, "category": "ai_self_reference" },
+            { "pattern": "como inteligencia artificial", "severity": 1, "category": "ai_self_reference" },
+            { "pattern": "no tengo acceso", "severity": 1, "category": "capability_limitation" },
+            { "pattern": "segun mi entrenamiento", "severity": 2, "category": "training_reference" },
+            { "pattern": "no puedo verificar", "severity": 2, "category": "unverifiable" },
+            { "pattern": "no estoy seguro", "severity": 1, "category": "uncertainty" },
+            { "pattern": "creo que", "severity": 1, "category": "hedging" },
+            { "pattern": "vale la pena mencionar", "severity": 1, "category": "filler" },
+            { "pattern": "publicado en \\d{4}", "severity": 1, "category": "citation_claim", "isRegex": true },
+            { "pattern": "un estudio (de|del|en)", "severity": 1, "category": "citation_claim", "isRegex": true }
+        ]
+    },
+    "security": {
+        "phrases": [
+            { "pattern": "ignora (todas )?(las )?(instrucciones|reglas) (previas|anteriores)", "severity": 5, "category": "prompt_injection", "isRegex": true },
+            { "pattern": "olvida (todas )?(las )?(instrucciones|reglas)", "severity": 5, "category": "prompt_injection", "isRegex": true },
+            { "pattern": "ahora eres", "severity": 3, "category": "persona_hijack" },
+            { "pattern": "nuevo rol", "severity": 3, "category": "persona_hijack" },
+            { "pattern": "sin restricciones", "severity": 3, "category": "jailbreak" },
+            { "pattern": "<script", "severity": 5, "category": "code_injection" },
+            { "pattern": "javascript:", "severity": 4, "category": "code_injection" },
+            { "pattern": "rm -rf", "severity": 5, "category": "dangerous_command" },
+            { "pattern": "drop table", "severity": 5, "category": "sql_injection" }
+        ]
+    },
+    "privacy": {
+        "patterns": [
+            { "pattern": "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}", "severity": 3, "category": "email", "isRegex": true },
+            { "pattern": "\\b\\d{3}[-.\\s]?\\d{3}[-.\\s]?\\d{4}\\b", "severity": 3, "category": "phone_number", "isRegex": true },
+            { "pattern": "\\b\\d{4}[-.\\s]?\\d{4}[-.\\s]?\\d{4}[-.\\s]?\\d{4}\\b", "severity": 5, "category": "credit_card", "isRegex": true },
+            { "pattern": "\\bcontrasena\\s*[:=]\\s*\\S+", "severity": 5, "category": "credential", "isRegex": true },
+            { "pattern": "\\bclave\\s*[:=]\\s*\\S+", "severity": 4, "category": "credential", "isRegex": true }
+        ]
+    }
+}
